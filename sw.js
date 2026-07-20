@@ -1,13 +1,14 @@
-const CACHE_NAME = "forged-physique-v4";
-const APP_SHELL = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
+const CACHE_NAME = "forged-physique-v5";
+const APP_SHELL = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
+ 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
   );
   self.skipWaiting();
 });
-
+ 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -16,7 +17,7 @@ self.addEventListener("activate", (event) => {
   );
   self.clients.claim();
 });
-
+ 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
@@ -32,3 +33,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+ 
